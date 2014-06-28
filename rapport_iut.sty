@@ -1,0 +1,195 @@
+%packages
+\usepackage[utf8]{inputenc}			% format du texte
+\usepackage[francais]{babel} 		% langue
+\usepackage{graphicx}				% images
+\usepackage[export]{adjustbox} 		% images avec bordure
+\usepackage{wrapfig}				% images intégres au texte
+\usepackage{color}					% couleur (notament dans les extraits de code)
+\usepackage{listings}				% extraits de code
+\usepackage[vmargin=2cm, left=3cm, right=2cm]{geometry}
+\usepackage{fancyhdr}				% en-tête et pied de page
+\usepackage{lastpage}				% Compte le nombre de pages
+\usepackage[final]{pdfpages}		% Inclusion des PDFs
+\usepackage{titlesec}				% Pour les titres des chapitres
+\usepackage[justification=centering]{caption}
+\usepackage{hyperref}				% Table des matières cliquable
+\usepackage{tocbibind}				% Ajoute la toc, tof, biblio, etc. dans la toc
+\usepackage{gensymb}				% Symboles
+\usepackage{placeins}				% Insérer des \FloatBarrier
+\usepackage{glossaries}				% pour le glossaire
+\usepackage{nameref}				% pour faire des références avec nom complet
+\usepackage[toc,page,header]{appendix}
+\usepackage[french]{minitoc}
+
+% Pour utiliser les variables de document
+\let\Author\@author
+\let\Title\@title
+\let\Date\@date
+
+% Variables de document personalisées
+\newcommand{\protutor}[1]{\newcommand{\Protutor}{#1}}
+\newcommand{\schooltutor}[1]{\newcommand{\Schooltutor}{#1}}
+\newcommand{\content}[1]{\newcommand{\Content}{#1}}
+\newcommand{\formation}[1]{\newcommand{\Formation}{#1}}
+
+% Paramètres des en-têtes et pieds de page
+\renewcommand\headrulewidth{1pt}
+\renewcommand\footrulewidth{1pt}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{}
+\fancyfoot[R]{\author}
+\fancyfoot[C]{\thepage/\pageref{contentlastpage}}
+
+% Raccourcis de commandes
+\newcommand{\Q}[1]{\og #1 \fg{}} % entre guillemets français (Quotes)
+\newcommand{\B}[1]{\textbf{#1}} % en gras (Bold)
+\newcommand{\I}[1]{\textit{#1}} % en italique (Italic)
+\newcommand{\C}[1]{\textsc{#1}} % en petites majuscules (Caps)
+\newcommand{\F}[1]{\footnote{#1}} % note de bas de page
+
+% Inclusion d'images avec légende
+\graphicspath{{img/}}
+\newcommand{\fig}[2]{
+\begin{figure}[h]
+	 \begin{center} \includegraphics[width=\textwidth]{#1} \end{center}
+	 \caption{\label{#1}#2}
+\end{figure}}
+
+\newcommand{\smallfig}[2]{
+\begin{figure}[h]
+	 \begin{center} \includegraphics[width=0.6\textwidth]{#1} \end{center}
+	 \caption{\label{#1}#2}
+\end{figure}}
+
+% Références de figures, annexes et chapitres
+\newcommand{\figref}[1]{(cf. fig. ~\ref{#1} p. ~\pageref{#1})}
+\newcommand{\appref}[1]{(cf. annexe ~\ref{#1} - \emph{\nameref{#1}} p. ~\pageref{#1})}
+\newcommand{\chapref}[1]{(cf. section ~\ref{#1} - \emph{\nameref{#1}} p. ~\pageref{#1})}
+
+% Citations
+\newenvironment{Quote}{\begin{quote}\fontfamily{pzc}\selectfont}{\end{quote}}
+
+% Définition des couleurs
+\definecolor{gray}{RGB}{160, 160, 160}
+\definecolor{violet}{RGB}{150, 80, 255}
+\definecolor{darkgreen}{RGB}{0, 143, 72}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+% Paramètres des extraits de code
+\lstset{
+	basicstyle=\footnotesize\fontfamily{pcr}\selectfont, % style de texte
+	commentstyle=\color{darkgreen},			% style du commentaire
+	frame=single,										% ajoute cadre autour du code
+	keywordstyle=\color{blue},			 % style du mot-clé
+	language=Java,									 % le langage utilisé par défaut
+	numbers=left,										% numéros de lignes à gauche
+	numbersep=7pt,									 % espace entre le numéro des lignes et le code
+	numberstyle=\tiny \color{gray},	% style des numéros de ligne
+	showstringspaces=false,					% n'ajoute pas des underscore dans les strings
+	stringstyle=\color{violet},			% style des strings
+	tabsize=4,											 % taille des tabulations
+	title={Extrait du code},					% titre par défaut
+	breaklines=true,
+	captionpos=b,
+	frame=single
+}
+
+% Paramètre de code pour le JavaScript
+\lstdefinelanguage{JavaScript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% Remplacement de quelques mots
+\addto\printglossaries{\markboth{\slshape\MakeUppercase{Glossaire}}{}}
+\addto\captionsfrench{\renewcommand{\chaptername}{Partie}}
+\renewcommand\lstlistingname{Extrait de code}
+
+% Commande pour chapitres spécifiques (intro, résumé, ...)
+\newcommand{\specialchapter}[1]{
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
+	\markboth{\slshape\MakeUppercase{#1}}{}
+}
+
+% TODO : tester avec frontmatter, mainmatter et backmatter pour ne pas à avoir à utiliser la commande specialchapter
+%\newcommand\toptitle{...}
+%\makeatletter
+%\def\@makechapterhead#1{%
+%  \vspace*{50\p@}%
+%  {\parindent \z@ \raggedright \normalfont
+%    \ifnum \c@secnumdepth >\m@ne
+%      \if@mainmatter
+%        \toptitle\par
+%        \huge\bfseries \@chapapp\space \thechapter
+%        \par\nobreak
+%        \vskip 20\p@
+%      \fi
+%    \fi
+%    \interlinepenalty\@M
+%    \Huge \bfseries #1\par\nobreak
+%    \vskip 40\p@
+%  }}
+%\makeatother
+
+%construit le glossaire
+\makeglossaries
+
+% Commandes à executer avant le début du document
+\AtBeginDocument {
+	\input{glossaire} % inclut le glossaire
+
+	\pagestyle{empty} \renewcommand{\thepage}{} % Style de page vierge (n'affiche pas les en-tête et pied de page)
+	\input{title} % insère le titre
+
+	\renewcommand \thepart{} \renewcommand \partname{\thispagestyle{empty}} % N'affiche pas "Partie" dans le titre des parties
+
+	% Le rapport est divisé en 2 parties (1. Contenu, 2. Annexes), ce qui permet de générer la table des annexes
+	\doparttoc \faketableofcontents % Génère la table des parties, qui n'est pas utilisée 
+	\part{} % Commence la partie 1. Contenu
+
+	\input{remerciements} % insère la page de remerciements
+	\clearpage \parttoc % Insere la table des matière
+	\addcontentsline{toc}{chapter}{Table des matières} % Ajoute la table des matières dans la table des matières
+	\clearpage \listoffigures \setcounter{page}{4} % Ajoute la table des figures dans la table des matières
+
+	\strut \newpage \pagestyle{fancyplain} % Affiche les en-tête et pied de page
+	\renewcommand{\thepage}{\arabic{page}} % Numéros de page en chiffres arabes
+	\setcounter{page}{7} % Démarre à la page 7
+	%TODO : trouver une solution plus dynamique
+}
+
+% Style à partir des annexes
+\addto\appendix {
+	\clearpage \addcontentsline{toc}{chapter}{Glossaire}
+	\printglossaries
+	\label{contentlastpage}
+	\cleardoublepage
+	\renewcommand{\ptctitle}{Table des annexes}
+	\setcounter{parttocdepth}{1}
+	\pagenumbering{Roman}
+	\addcontentsline{toc}{chapter}{Annexes}
+	\part{Annexes}
+	\titleformat{\chapter}{\bf\Large}{Annexe \thechapter ~ : }{0em}{}
+	\fancyfoot[C]{\thepage/\pageref{LastPage}}
+	\parttoc
+}
+
+% Commandes à executer à la fin du document
+\AtEndDocument {
+
+}
+
+\endinput
